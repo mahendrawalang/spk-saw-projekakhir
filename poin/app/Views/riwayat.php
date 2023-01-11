@@ -12,12 +12,12 @@
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
-              <h2 class="pageheader-title">Master Jenis / Kategori Sanksi Pelanggaran</h2>
+              <h2 class="pageheader-title">Riwayat Analisis</h2>
               <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php echo base_url('') ?>" class="breadcrumb-link">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Sanksi</li>
+                    <li class="breadcrumb-item active" aria-current="page">Riwayat Analisis</li>
                   </ol>
                 </nav>
               </div>
@@ -28,16 +28,19 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
               <div class="card-body">
-                <a href="<?php echo base_url('sanksi/baru') ?>" class="btn btn-space btn-primary btn-sm" style="float: right;">Tambah Data</a>
-                <p>Pilih <code>Tambah Data</code> untuk menambahkan data baru, Pilih <code>Edit</code> untuk mengubah data</p>
+                <p>Pilih <code>Detail</code> untuk menampilkan detail data</p>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-striped table-bordered first">
                     <thead>
                       <tr>
-                        <th>Sanksi</th>
-                        <th>Batas Poin</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Kelas</th>
+                        <th>Alamat</th>
+                        <th>Total Poin</th>
                         <th>**</th>
                       </tr>
                     </thead>
@@ -45,14 +48,18 @@
                       <?php if(count($data) > 0){ ?>
                         <?php foreach ($data as $d) {?>
                           <tr>
-                            <td><?php echo $d['sanksi'] ?></td>
-                            <td><?php echo $d['batas'] ?></td>
-                            <td><a href="<?php echo base_url('sanksi/detail/'.$d['idsanksi']) ?>" class="btn btn-space btn-warning btn-xs">Detail</a></td>
+                            <td><?php echo $d['nis'] ?></td>
+                            <td><?php echo $d['nama'] ?></td>
+                            <td><?php echo $d['jekel'] ?></td>
+                            <td><?php echo $d['kelas'] ?></td>
+                            <td><?php echo $d['alamat'] ?></td>
+                            <td><?php echo $d['poin'] ?></td>
+                            <td><a href="<?php echo base_url('riwayat/detail/'.$d['idsiswa']) ?>" class="btn btn-space btn-warning btn-xs">Detail</a></td>
                           </tr>
                         <?php } ?>
                       <?php }else{ ?>
                         <tr>
-                          <td colspan="3" align="center">Belum ada data...</td>
+                          <td colspan="6" align="center">Belum ada data...</td>
                         </tr>
                       <?php } ?>
                     </tbody>

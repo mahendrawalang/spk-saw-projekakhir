@@ -22,7 +22,7 @@ class Sanksi extends BaseController{
 		$data = array(
 			'idsanksi' => null,
 			'sanksi' => $this->request->getPost('sanksi'),
-			'poin' => $this->request->getPost('poin')
+			'batas' => $this->request->getPost('batas')
 		);
 		$dbm->simpan("sanksi",$data);
 		return redirect()->to(base_url('sanksi'));
@@ -39,7 +39,7 @@ class Sanksi extends BaseController{
 		$id = $this->request->getPost('id');
 		$data = array(
 			'sanksi' => $this->request->getPost('sanksi'),
-			'poin' => $this->request->getPost('poin')
+			'batas' => $this->request->getPost('batas')
 		);
 		$dbm->ubah("sanksi",$data,['idsanksi' => $id]);
 		return redirect()->to(base_url('sanksi'));

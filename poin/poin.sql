@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Nov 2022 pada 16.44
+-- Waktu pembuatan: 10 Jan 2023 pada 18.13
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.0
 
@@ -32,9 +32,15 @@ CREATE TABLE `hasil` (
   `waktu` datetime NOT NULL,
   `hasil` text NOT NULL,
   `na` double NOT NULL,
-  `nis` char(5) NOT NULL,
-  `nama` varchar(63) NOT NULL
+  `idsiswa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `hasil`
+--
+
+INSERT INTO `hasil` (`idhasil`, `waktu`, `hasil`, `na`, `idsiswa`) VALUES
+(1, '2023-01-10 10:43:26', 'Jenis atau Kategori Pelanggaran Ringan', 24.333333333333, 1);
 
 -- --------------------------------------------------------
 
@@ -58,11 +64,11 @@ INSERT INTO `indikator` (`idindikator`, `indikator`, `nilai`, `idkriteria`) VALU
 (2, 'Mengganggu ketenangan KBM', 4, 1),
 (3, 'Berambut panjang terberai (bagi siswa putri)', 10, 3),
 (4, 'Merusak sarana/ prasarana sekolah, software maupun hardware', 15, 2),
-(5, 'Membawa HP, MP3, MP4, Headset, atau sejenisnya (dapat diambil orang tua)', 15, 2),
+(5, 'Membawa HP, MP3, MP4, Headset, atau sejenisnya (dapat diambil orang tua)', 10, 2),
 (6, 'Mengambil hak orang lain, berjudi', 20, 1),
 (7, 'Tidak memasukkan baju seragam', 1, 3),
 (8, 'Berambut gondrong (bagi siswa putra)', 2, 3),
-(9, 'Baju seragam tidak sesuai dengan ketentuan sekolah', 15, 2);
+(9, 'Baju seragam tidak sesuai dengan ketentuan sekolah', 5, 2);
 
 -- --------------------------------------------------------
 
@@ -94,10 +100,20 @@ INSERT INTO `kriteria` (`idkriteria`, `kriteria`, `kategori`, `bobot`) VALUES
 
 CREATE TABLE `nilai` (
   `idnilai` int(11) NOT NULL,
+  `indikator` text NOT NULL,
   `nilai` int(11) NOT NULL,
   `idkriteria` int(11) NOT NULL,
-  `nis` char(5) NOT NULL
+  `idsiswa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `nilai`
+--
+
+INSERT INTO `nilai` (`idnilai`, `indikator`, `nilai`, `idkriteria`, `idsiswa`) VALUES
+(1, 'Mengganggu ketenangan KBM', 4, 1, 1),
+(2, 'Membawa HP, MP3, MP4, Headset, atau sejenisnya (dapat diambil orang tua)', 10, 2, 1),
+(3, 'Tidak memasukkan baju seragam', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -127,14 +143,14 @@ INSERT INTO `pengguna` (`nama`, `username`, `password`) VALUES
 CREATE TABLE `sanksi` (
   `idsanksi` int(11) NOT NULL,
   `sanksi` text NOT NULL,
-  `poin` int(11) NOT NULL
+  `batas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `sanksi`
 --
 
-INSERT INTO `sanksi` (`idsanksi`, `sanksi`, `poin`) VALUES
+INSERT INTO `sanksi` (`idsanksi`, `sanksi`, `batas`) VALUES
 (1, 'Jenis atau Kategori Pelanggaran Ringan', 30),
 (2, 'Jenis atau Kategori Pelanggaran Sedang', 60),
 (3, 'Jenis atau Kategori Pelanggaran Berat', 100);
@@ -148,10 +164,14 @@ INSERT INTO `sanksi` (`idsanksi`, `sanksi`, `poin`) VALUES
 CREATE TABLE `siswa` (
   `idsiswa` int(11) NOT NULL,
   `nis` char(5) NOT NULL,
+  `nisn` char(10) NOT NULL,
   `nama` varchar(63) NOT NULL,
   `jekel` enum('Pria','Wanita') NOT NULL,
   `kelas` varchar(9) NOT NULL,
   `alamat` text NOT NULL,
+  `telepon` char(14) NOT NULL,
+  `wali` varchar(63) NOT NULL,
+  `status` enum('1','0') NOT NULL,
   `poin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -159,9 +179,9 @@ CREATE TABLE `siswa` (
 -- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`idsiswa`, `nis`, `nama`, `jekel`, `kelas`, `alamat`, `poin`) VALUES
-(1, '12345', 'Contoh Nama Siswa', 'Pria', 'X TPL 2', 'Pekalongan Utara', 0),
-(2, '23456', 'Contoh Nama Siswa Lainnya', 'Wanita', 'X TPL 1', 'Pekalongan', 0);
+INSERT INTO `siswa` (`idsiswa`, `nis`, `nisn`, `nama`, `jekel`, `kelas`, `alamat`, `telepon`, `wali`, `status`, `poin`) VALUES
+(1, '12345', '', 'Contoh Nama Siswa', 'Pria', 'X TPL 2', 'Pekalongan Utara', '', '', '1', 24),
+(2, '23456', '', 'Contoh Nama Siswa Lainnya', 'Wanita', 'X TPL 1', 'Pekalongan', '', '', '1', 0);
 
 --
 -- Indexes for dumped tables
@@ -217,7 +237,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT untuk tabel `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `idhasil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idhasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `indikator`
@@ -235,7 +255,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT untuk tabel `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `idnilai` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idnilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `sanksi`

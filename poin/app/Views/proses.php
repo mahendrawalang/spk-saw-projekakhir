@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-              <form action="<?php echo base_url('indikator/simpan') ?>" method="post">
+              <form action="<?php echo base_url('proses/analisa') ?>" method="post">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="inputSmall" class="col-form-label">Siswa</label>
@@ -54,8 +54,9 @@
                   <?php } ?>
                 </div>
                 <div class="card-footer">
-                  <a href="<?php echo base_url('indikator') ?>" class="btn btn-primary btn-xs">Kembali</a>
-                  <button type="submit" class="btn btn-success btn-xs" style="float: right;">Simpan Data</button>
+                  <div class="clearfix">
+                    <button type="submit" class="btn btn-success btn-xs" style="float: right;">Proses</button>
+                  </div>
                 </div>
               </form>
             </div>

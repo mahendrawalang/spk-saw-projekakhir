@@ -38,10 +38,8 @@ $routes->set404Override();
 $routes->add('/', 'Root::index');
 $routes->add('/login', 'Root::proseslogin');
 $routes->add('/logout', 'Root::proseslogout');
-//===============================================================================
-$routes->add('/pengguna', 'Pengguna::index');
-$routes->add('/profil', 'Pengguna::tampilprofil');
-$routes->add('/ubahprofil', 'Pengguna::ubahprofil');
+$routes->add('/profil', 'Root::tampilprofil');
+$routes->add('/ubahprofil', 'Root::ubahprofil');
 
 $routes->add('/sanksi', 'Sanksi::index');
 $routes->add('/sanksi/baru', 'Sanksi::tambahdata');
@@ -69,8 +67,8 @@ $routes->add('/indikator/ubah', 'Indikator::ubahdata');
 
 $routes->add('/proses', 'Proses::index');
 $routes->add('/proses/analisa', 'Proses::analisadata');
-$routes->add('/proses/simpan', 'Proses::simpandata');
 $routes->add('/riwayat', 'Proses::tampilriwayat');
+$routes->add('/riwayat/detail/(:any)', 'Proses::detailriwayat/$1');
 
 /*
  * --------------------------------------------------------------------
